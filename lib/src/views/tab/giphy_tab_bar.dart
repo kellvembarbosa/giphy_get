@@ -5,7 +5,7 @@ import 'package:giphy_get/src/providers/tab_provider.dart';
 import 'package:provider/provider.dart';
 
 class GiphyTabBar extends StatefulWidget {
-  final TabController tabController;
+  final TabController? tabController;
   const GiphyTabBar({Key? key, required this.tabController}) : super(key: key);
 
   @override
@@ -15,23 +15,18 @@ class GiphyTabBar extends StatefulWidget {
 class _GiphyTabBarState extends State<GiphyTabBar> {
   late TabProvider _tabProvider;
   late List<Tab> _tabs;
-  
 
   @override
   void initState() {
     super.initState();
 
-    
-
     // TabProvider
-    _tabProvider = Provider.of<TabProvider>(context, listen: false);
-
-    
+    //_tabProvider = Provider.of<TabProvider>(context, listen: false);
 
     //  Listen Tab Controller
-    widget.tabController.addListener(() {
-      _setTabType(widget.tabController.index);
-    });
+    // widget.tabController.addListener(() {
+    //   _setTabType(widget.tabController.index);
+    // });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _setTabType(0);
@@ -59,7 +54,7 @@ class _GiphyTabBarState extends State<GiphyTabBar> {
   @override
   void dispose() {
     //Dispose tabController
-    widget.tabController.dispose();
+    //widget.tabController.dispose();
     super.dispose();
   }
 
@@ -68,13 +63,11 @@ class _GiphyTabBarState extends State<GiphyTabBar> {
     _tabProvider = Provider.of<TabProvider>(context);
 
     return TabBar(
-      unselectedLabelColor: Theme.of(context).brightness == Brightness.light
-          ? Colors.black54
-          : Colors.white54,
+      unselectedLabelColor: Theme.of(context).brightness == Brightness.light ? Colors.black54 : Colors.white54,
       labelColor: _tabProvider.tabColor ?? Theme.of(context).colorScheme.secondary,
       indicatorColor: Colors.transparent,
       indicatorSize: TabBarIndicatorSize.label,
-      controller: widget.tabController,
+      //controller: widget.tabController,
       tabs: _tabs,
       onTap: _setTabType,
     );
@@ -83,17 +76,18 @@ class _GiphyTabBarState extends State<GiphyTabBar> {
   _setTabType(int pos) {
     String _tabType;
     // set Tab Type to provider
-    switch (widget.tabController.index) {
-      case 0:
-        _tabType = GiphyType.gifs;
-        break;
-      case 1:
-        _tabType = GiphyType.stickers;
-        break;
-      default:
-        _tabType = GiphyType.emoji;
-        break;
-    }
-    _tabProvider.tabType = _tabType;
+    _tabType = GiphyType.gifs;
+    // switch (widget.tabController.index) {
+    //   case 0:
+    //     _tabType = GiphyType.gifs;
+    //     break;
+    //   case 1:
+    //     _tabType = GiphyType.stickers;
+    //     break;
+    //   default:
+    //     _tabType = GiphyType.emoji;
+    //     break;
+    // }
+    // _tabProvider.tabType = _tabType;
   }
 }

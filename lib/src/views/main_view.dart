@@ -14,8 +14,7 @@ class MainView extends StatefulWidget {
   _MainViewState createState() => _MainViewState();
 }
 
-class _MainViewState extends State<MainView>
-    with SingleTickerProviderStateMixin {
+class _MainViewState extends State<MainView> with SingleTickerProviderStateMixin {
   // Scroll Controller
   late ScrollController _scrollController;
 
@@ -23,13 +22,13 @@ class _MainViewState extends State<MainView>
   late SheetProvider _sheetProvider;
 
   // Tab Controller
-  late TabController _tabController;
+  //late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
 
-    _tabController = TabController(length: 3, vsync: this);
+    //_tabController = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -65,13 +64,11 @@ class _MainViewState extends State<MainView>
         mainAxisSize: MainAxisSize.min,
         children: [
           GiphyTabTop(),
-          GiphyTabBar(
-            tabController: _tabController,
-          ),
           SearchAppBar(scrollController: this._scrollController),
           Expanded(
               child: GiphyTabView(
-            tabController: _tabController,
+            onlyGIF: true, //_sheetProvider.onlyGIF,
+            //tabController: _tabController,
             scrollController: this._scrollController,
           )),
           GiphyTabBottom()
